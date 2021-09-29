@@ -1,5 +1,12 @@
-
 -- Find names of all employees who have sold over 50,000
+SELECT employee.first_name, employee.last_name
+FROM employee
+WHERE employee.emp_id IN (SELECT works_with.emp_id
+                          FROM works_with
+                          group by works_with.emp_id 
+                          having sum(works_with.total_sales) > 50000 );
+
+-- Find names of all employees who have any sale over 50,000
 SELECT employee.first_name, employee.last_name
 FROM employee
 WHERE employee.emp_id IN (SELECT works_with.emp_id
